@@ -6,3 +6,13 @@ export default function ProductoPage({ params }: { params: { id: string } }) {
     </main>
   );
 }
+
+// IDs de ejemplo para build
+export function generateStaticParams() {
+  return [
+    { id: '1' },
+    { id: '2' },
+    { id: '3' },
+    { id: 'demo' },
+  ];
+}
