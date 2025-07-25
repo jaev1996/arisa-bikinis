@@ -1,0 +1,11 @@
+[
+  {
+    "id": "bikini-rosa",
+    "nombre": "Bikini Rosa Floral",
+    "descripcion": "Traje de baño con estampado floral y tirantes ajustables.",
+    "tallas": ["S", "M", "L"],
+    "tipo": "Bikini",
+    "precio": 25,
+    "imagen": "/images/cat-bikini.jpeg"
+  }
+]

@@ -1,18 +1,26 @@
-export default function ProductoPage({ params }: { params: { id: string } }) {
+import productos from '@/data/products.json';
+import { notFound } from 'next/navigation';
+
+type PageProps = {
+  params: { id: string };
+};
+
+export default function ProductoPage({ params }: PageProps) {
+  const producto = productos.find((p) => p.id === params.id);
+
+  if (!producto) return notFound();
+
   return (
-    <main className="p-4">
-      <h1 className="text-3xl font-bold">Detalle del producto</h1>
-      <p className="mt-2">ID del producto: {params.id}</p>
+    <main className="p-6">
+      <h1 className="text-3xl font-bold mb-4">{producto.nombre}</h1>
+      <img
+        src={producto.imagen}
+        alt={producto.nombre}
+        className="w-full max-w-md mb-6 rounded shadow"
+      />
+      <p className="mb-2">{producto.descripcion}</p>
+      <p className="mb-1">Tallas: {producto.tallas.join(', ')}</p>
+      <p className="font-bold text-pink-600 text-lg">${producto.precio}</p>
     </main>
   );
-}
-
-// IDs de ejemplo para build
-export function generateStaticParams() {
-  return [
-    { id: '1' },
-    { id: '2' },
-    { id: '3' },
-    { id: 'demo' },
-  ];
 }
