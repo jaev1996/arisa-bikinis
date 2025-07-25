@@ -1,103 +1,90 @@
-import Image from "next/image";
+'use client';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="bg-white text-black">
+      {/* Hero principal */}
+      <section
+        className="relative min-h-[70vh] sm:h-screen bg-cover bg-center flex items-center justify-center text-white"
+        style={{ 
+          backgroundImage: `url('/images/hero-bikini.jpeg')`,
+          backgroundPosition: 'center 60%', // centra la modelo en móviles
+        }}
+      >
+        <div className="bg-black/40 w-full h-full absolute top-0 left-0 z-0" />
+        <motion.div
+          className="z-10 text-center max-w-xl px-4 w-full"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          <h1 className="text-4xl sm:text-6xl font-extrabold mb-6 drop-shadow-lg text-pink-600">Arisa Bikinis</h1>
+          <h2 className="text-xl sm:text-3xl font-bold mb-4 text-white drop-shadow">Descubre tu estilo bajo el sol</h2>
+          <p className="mb-8 text-base sm:text-lg text-white drop-shadow">Bikinis con personalidad, para mujeres auténticas. Vive el verano con confianza y estilo.</p>
+          <Link
+            href="/catalogo"
+            className="bg-pink-600 hover:bg-pink-700 px-4 sm:px-6 py-2 sm:py-3 rounded text-white font-semibold transition text-sm sm:text-base"
+          >
+            Ver Catálogo
+          </Link>
+        </motion.div>
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Categorías */}
+      <section className="py-12 sm:py-20 px-4 sm:px-6 text-center">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12">Explora nuestras categorías</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+          {[
+            { nombre: 'Bikinis', imagen: '/images/cat-bikini.jpeg' },
+            { nombre: 'Enterizos', imagen: '/images/cat-enterizo.jpeg' },
+            { nombre: 'Trikinis', imagen: '/images/cat-trikini.jpeg' },
+          ].map((cat) => (
+            <Link href={`/catalogo?tipo=${cat.nombre.toLowerCase()}`} key={cat.nombre}>
+              <div className="rounded overflow-hidden shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer">
+                <img
+                  src={cat.imagen}
+                  alt={cat.nombre}
+                  className="w-full h-56 sm:h-[400px] object-cover"
+                />
+                <div className="bg-black text-white p-2 sm:p-4 font-semibold text-base sm:text-lg">{cat.nombre}</div>
+              </div>
+            </Link>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+      </section>
+
+      {/* ¿Quiénes somos? */}
+      <section className="bg-pink-50 py-12 sm:py-20 px-4 sm:px-6">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
+          <img
+            src="/images/about-us.jpeg"
+            alt="Nosotros"
+            className="w-full h-56 sm:h-[400px] object-cover rounded-lg shadow-md mb-6 md:mb-0"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4">¿Quiénes somos?</h2>
+            <p className="text-base sm:text-lg text-neutral-700 leading-relaxed mb-4">
+              En <strong>Arisa Bikinis</strong>, celebramos la belleza y la autenticidad de cada mujer. Diseñamos trajes de baño que combinan estilo, comodidad y confianza, con materiales de calidad y diseños que se adaptan a ti.
+            </p>
+            <p className="text-base sm:text-lg text-neutral-700 leading-relaxed">
+              Nacimos en Venezuela con una sola misión: que cada mujer se sienta increíble en su propia piel, ya sea en la playa, en la piscina o en la ciudad. Únete a nuestra comunidad y lleva el sol contigo.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Coming Soon Nueva Colección */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 text-center bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 text-white rounded-lg shadow-lg mt-8">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-3xl sm:text-5xl font-extrabold mb-4 drop-shadow-lg">¡Nueva Colección Próximamente!</h2>
+          <p className="text-lg sm:text-2xl mb-6 font-semibold">Prepárate para descubrir los diseños más frescos y atrevidos de Arisa Bikinis. Muy pronto disponible.</p>
+          <div className="flex justify-center">
+            <span className="inline-block bg-white text-pink-600 font-bold px-6 py-3 rounded-full text-lg shadow-lg animate-pulse">Coming Soon</span>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
