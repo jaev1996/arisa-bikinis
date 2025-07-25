@@ -1,11 +1,19 @@
 import productos from '@/data/products.json';
 import { notFound } from 'next/navigation';
 
-type PageProps = {
-  params: { id: string };
+type Props = {
+  params: {
+    id: string;
+  };
 };
 
-export default function ProductoPage({ params }: PageProps) {
+export async function generateStaticParams() {
+  return productos.map((producto) => ({
+    id: producto.id,
+  }));
+}
+
+export default function ProductoPage({ params }: Props) {
   const producto = productos.find((p) => p.id === params.id);
 
   if (!producto) return notFound();
