@@ -12,7 +12,6 @@ export default function HomePage() {
   const heroSectionRef = useRef(null);
   const heroImageRef = useRef(null);
   const heroTextRef = useRef(null);
-  const sectionRef = useRef(null);
 
   useEffect(() => {
     // gsap.context() es la forma recomendada de usar GSAP en React.
@@ -45,16 +44,19 @@ export default function HomePage() {
         .to(heroImageRef.current, { scale: 1, yPercent: 0, ease: 'none' }, 0) // La imagen vuelve a su tamaño original
         .to(heroTextRef.current, { opacity: 0, y: -150, ease: 'power1.in' }, 0); // El texto se desvanece y sube
 
-      // 3. Animación de la sección "Hola, soy una sección con GSAP!"
-      gsap.from(sectionRef.current, {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none', // La animación solo se ejecuta una vez
-        },
+      // 3. Animación para las secciones de contenido
+      // Usamos una clase común para seleccionar todas las secciones que queremos animar
+      gsap.utils.toArray('.gsap-section').forEach((section) => {
+        gsap.from(section as HTMLElement, {
+          opacity: 0,
+          y: 50,
+          duration: 1,
+          scrollTrigger: {
+            trigger: section as HTMLElement,
+            start: 'top 85%', // La animación empieza cuando el 85% de la sección es visible
+            toggleActions: 'play none none none',
+          },
+        });
       });
     });
 
@@ -111,16 +113,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Sección animada */}
-        <section ref={sectionRef} className="py-20 px-6 text-center">
-          <h2 className="text-3xl font-bold mb-6">¡Hola, soy una sección con GSAP!</h2>
-          <p className="text-lg text-neutral-600">
-            Aparezco suavemente cuando haces scroll 🪄
-          </p>
-        </section>
-
         {/* Categorías */}
-        <section className="py-12 sm:py-20 px-4 sm:px-6 text-center">
+        <section className="py-12 sm:py-20 px-4 sm:px-6 text-center gsap-section">
           <h2 className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12">
             Explora nuestras categorías
           </h2>
@@ -147,7 +141,7 @@ export default function HomePage() {
         </section>
 
         {/* ¿Quiénes somos? */}
-        <section className="bg-pink-50 py-12 sm:py-20 px-4 sm:px-6">
+        <section className="bg-pink-50 py-12 sm:py-20 px-4 sm:px-6 gsap-section">
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
             <img src="/images/about-us.jpeg" alt="Nosotros" className="w-full h-56 sm:h-[400px] object-cover rounded-lg shadow-md mb-6 md:mb-0" />
             <div>
@@ -170,7 +164,7 @@ export default function HomePage() {
         </section>
 
         {/* Coming Soon Nueva Colección */}
-        <section className="py-16 sm:py-24 px-4 sm:px-6 text-center bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 text-white rounded-lg shadow-lg mt-8">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 text-center bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 text-white rounded-lg shadow-lg mt-8 gsap-section">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-3xl sm:text-5xl font-extrabold mb-4 drop-shadow-lg">
               ¡Nueva Colección Próximamente!
