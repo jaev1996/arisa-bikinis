@@ -6,6 +6,87 @@
     "tallas": ["S", "M", "L"],
     "tipo": "Bikini",
     "precio": 25,
-    "imagen": "/images/cat-bikini.jpeg"
+    "imagen": "/products/product01.webp"
+  },
+  {
+    "id": "enterizo-negro",
+    "nombre": "Enterizo Negro Clásico",
+    "descripcion": "Enterizo elegante con espalda descubierta y tela suave.",
+    "tallas": ["M", "L"],
+    "tipo": "Enterizo",
+    "precio": 30,
+    "imagen": "/products/product02.webp"
+  },
+  {
+    "id": "trikini-blanco",
+    "nombre": "Trikini Blanco Moderno",
+    "descripcion": "Trikini con cortes modernos y detalles en dorado.",
+    "tallas": ["S", "M"],
+    "tipo": "Trikini",
+    "precio": 28,
+    "imagen": "/products/product03.webp"
+  },
+  {
+    "id": "bikini-azul",
+    "nombre": "Bikini Azul Marino",
+    "descripcion": "Bikini de color azul marino con top triangular y tirantes cruzados.",
+    "tallas": ["S", "M", "L"],
+    "tipo": "Bikini",
+    "precio": 18,
+    "imagen": "/products/product04.webp"
+  },
+  {
+    "id": "enterizo-rojo",
+    "nombre": "Enterizo Rojo Vibrante",
+    "descripcion": "Enterizo de color rojo vibrante con escote en V y ajuste perfecto.",
+    "tallas": ["M", "L"],
+    "tipo": "Enterizo",
+    "precio": 22,
+    "imagen": "/products/product05.webp"
+  },
+  {
+    "id": "bikini-verde",
+    "nombre": "Bikini Verde Pastel",
+    "descripcion": "Bikini de color verde pastel con detalles fruncidos.",
+    "tallas": ["S", "L"],
+    "tipo": "Bikini",
+    "precio": 15,
+    "imagen": "/products/product06.webp"
+  },
+  {
+    "id": "trikini-negro",
+    "nombre": "Trikini Negro Elegante",
+    "descripcion": "Trikini negro con detalles metálicos y corte moderno.",
+    "tallas": ["M", "L"],
+    "tipo": "Trikini",
+    "precio": 27,
+    "imagen": "/products/product07.webp"
+  },
+  {
+    "id": "bikini-amarillo",
+    "nombre": "Bikini Amarillo Sol",
+    "descripcion": "Bikini amarillo vibrante con volantes en el top.",
+    "tallas": ["S", "M"],
+    "tipo": "Bikini",
+    "precio": 19,
+    "imagen": "/products/product08.webp"
+  },
+  {
+    "id": "enterizo-blanco",
+    "nombre": "Enterizo Blanco Minimal",
+    "descripcion": "Enterizo blanco con diseño minimalista y tirantes finos.",
+    "tallas": ["S", "M", "L"],
+    "tipo": "Enterizo",
+    "precio": 29,
+    "imagen": "/products/product09.webp"
+  },
+  {
+    "id": "bikini-multicolor",
+    "nombre": "Bikini Multicolor Tropical",
+    "descripcion": "Bikini con estampado tropical y colores vivos.",
+    "tallas": ["M", "L"],
+    "tipo": "Bikini",
+    "precio": 21,
+    "imagen": "/products/product10.webp"
   }
 ]
