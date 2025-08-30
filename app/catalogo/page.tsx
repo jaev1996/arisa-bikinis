@@ -78,13 +78,13 @@ export default function CatalogoPage() {
 
       {/* Contenedor del Catálogo */}
       <div className="bg-white p-4 sm:p-8 rounded-2xl">
-        <h2 className="text-4xl font-bold text-pink-600 mb-6 text-center">Nuestro Catálogo</h2>
+        <h2 className="text-4xl font-bold text-primary mb-6 text-center">Nuestro Catálogo</h2>
 
         {/* Filtros y búsqueda */}
         <section ref={gridRef} className="mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
             <select
-              className="bg-white border-pink-600 text-neutral-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500 transition w-full"
+              className="bg-white border-accent text-neutral-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent transition w-full"
               value={categoria}
               onChange={(e) => setCategoria(e.target.value)}
             >
@@ -94,7 +94,7 @@ export default function CatalogoPage() {
               <option value="Trikini">Trikini</option>
             </select>
             <select
-              className="bg-white border-pink-600 text-neutral-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500 transition w-full"
+              className="bg-white border-accent text-neutral-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent transition w-full"
               value={talla}
               onChange={(e) => setTalla(e.target.value)}
             >
@@ -107,7 +107,7 @@ export default function CatalogoPage() {
           <input
             type="text"
             placeholder="Buscar por nombre..."
-            className="bg-white border-pink-600 text-neutral-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500 transition w-full md:w-64"
+            className="bg-white border-accent text-neutral-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent transition w-full md:w-64"
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
           />
@@ -123,7 +123,7 @@ export default function CatalogoPage() {
           {productosPagina.map((p) => (
             <motion.div
               key={p.id}
-              className="bg-white rounded-lg shadow-md hover:shadow-xl hover:shadow-pink-200/50 hover:scale-105 hover:ring-2 hover:ring-pink-500 transition-all duration-300 overflow-hidden flex flex-col"
+              className="bg-white rounded-lg shadow-md hover:shadow-xl hover:shadow-pink-200/50 hover:scale-105 hover:ring-2 hover:ring-primary transition-all duration-300 overflow-hidden flex flex-col"
               variants={itemAnim}
             >
               <Link href="#" className="block relative">
@@ -132,22 +132,22 @@ export default function CatalogoPage() {
                   alt={p.nombre}
                   className="w-full h-64 object-contain bg-neutral-100"
                 />
-                <span className="absolute top-2 right-2 bg-white/90 text-pink-600 text-xs font-semibold px-2 py-1 rounded-full">
+                <span className="absolute top-2 right-2 bg-accent/90 text-primary text-xs font-semibold px-2 py-1 rounded-full">
                   {p.tipo}
                 </span>
               </Link>
               <div className="p-4 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-2">
-                  <Link href="#" className="font-bold text-lg text-pink-600 hover:underline pr-2">
+                  <Link href="#" className="font-bold text-lg text-primary hover:underline pr-2">
                     {p.nombre}
                   </Link>
-                  <p className="font-bold text-pink-600 text-lg whitespace-nowrap">${p.precio}</p>
+                  <p className="font-bold text-primary text-lg whitespace-nowrap">${p.precio}</p>
                 </div>
-                <p className="text-sm text-neutral-600 mb-4 flex-grow line-clamp-2">{p.descripcion}</p>
+                <p className="text-sm text-neutral-600 font-mono mb-4 flex-grow line-clamp-2">{p.descripcion}</p>
                 <div className="mt-auto">
                   <div className="flex gap-2 flex-wrap">
                     {p.tallas.map(talla => (
-                      <span key={talla} className="bg-neutral-200 text-neutral-800 text-xs font-medium px-2.5 py-1 rounded-full">
+                      <span key={talla} className="bg-accent text-primary/90 text-xs font-medium px-2.5 py-1 rounded-full">
                         {talla}
                       </span>
                     ))}
@@ -161,15 +161,15 @@ export default function CatalogoPage() {
         {/* Paginación */}
         <div className="flex justify-center items-center gap-2 mt-8">
           <button
-            className="py-2 px-4 rounded-md bg-pink-600 text-white font-semibold transition-colors duration-300 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 disabled:bg-neutral-200 disabled:text-neutral-400 disabled:cursor-not-allowed"
+            className="py-2 px-4 rounded-md bg-accent text-primary font-mono font-semibold transition-colors duration-300 hover:bg-primary hover:text-secondary focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:bg-neutral-200 disabled:text-neutral-400 disabled:cursor-not-allowed"
             disabled={pagina === 1}
             onClick={() => setPagina((p) => Math.max(1, p - 1))}
           >
             Anterior
           </button>
-          <span className="px-4 text-neutral-700 font-medium">Página {pagina} de {totalPaginas}</span>
+          <span className="px-4 text-neutral-700 font-medium font-mono">Página {pagina} de {totalPaginas}</span>
           <button
-            className="py-2 px-4 rounded-md bg-pink-600 text-white font-semibold transition-colors duration-300 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 disabled:bg-neutral-200 disabled:text-neutral-400 disabled:cursor-not-allowed"
+            className="py-2 px-4 rounded-md bg-accent text-primary font-mono font-semibold transition-colors duration-300 hover:bg-primary/90 hover:text-secondary focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:bg-neutral-200 disabled:text-neutral-400 disabled:cursor-not-allowed"
             disabled={pagina === totalPaginas}
             onClick={() => setPagina((p) => Math.min(totalPaginas, p + 1))}
           >
