@@ -2,16 +2,12 @@ import productos from '@/data/products.json';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 
-type Props = {
-  params: { id: string };
-};
-
-export default async function ProductoPage({ params }: Props) {
-  const { id } = await params
+export default async function ProductoPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const producto = productos.find((p) => p.id === id);
 
-
   if (!producto) return notFound();
+
 
   return (
     <main className="min-h-screen bg-secondary flex items-center justify-center py-12 px-4">
