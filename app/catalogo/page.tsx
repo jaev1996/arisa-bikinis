@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import productos from "@/data/products.json";
 
 
@@ -126,11 +127,15 @@ export default function CatalogoPage() {
               className="bg-white rounded-lg shadow-md hover:shadow-xl hover:shadow-pink-200/50 hover:scale-105 hover:ring-2 hover:ring-primary transition-all duration-300 overflow-hidden flex flex-col"
               variants={itemAnim}
             >
-              <Link href="#" className="block relative">
-                <img
+              <Link href={`/producto/${p.id}`} className="relative block">
+                <Image
                   src={p.imagen}
                   alt={p.nombre}
+                  width={400}
+                  height={256}
                   className="w-full h-64 object-contain bg-neutral-100"
+                  style={{ width: "100%", height: "16rem", objectFit: "contain", backgroundColor: "#f5f5f5" }}
+                  priority={true}
                 />
                 <span className="absolute top-2 right-2 bg-accent/90 text-primary text-xs font-semibold px-2 py-1 rounded-full">
                   {p.tipo}
@@ -138,7 +143,7 @@ export default function CatalogoPage() {
               </Link>
               <div className="p-4 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-2">
-                  <Link href="#" className="font-bold text-lg text-primary hover:underline pr-2">
+                  <Link href={`/producto/${p.id}`} className="font-bold text-lg text-primary hover:underline pr-2">
                     {p.nombre}
                   </Link>
                   <p className="font-bold text-primary text-lg whitespace-nowrap">${p.precio}</p>
@@ -155,7 +160,9 @@ export default function CatalogoPage() {
                 </div>
               </div>
             </motion.div>
+
           ))}
+
         </motion.section>
 
         {/* Paginación */}

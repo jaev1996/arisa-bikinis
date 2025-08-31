@@ -12,7 +12,7 @@ const primaryFont = localFont({
 });
 
 const secondaryFont = localFont({
-  src: './fonts/arisa-futura-light.ttf',
+  src: './fonts/futura-pt-light.ttf',
   display: 'swap',
   variable: '--font-futura',
 });

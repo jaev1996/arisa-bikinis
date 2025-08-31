@@ -131,9 +131,11 @@ export default function HomePage() {
             ].map((cat) => (
               <Link href={`/catalogo?tipo=${cat.nombre.toLowerCase()}`} key={cat.nombre}>
                 <div className="group rounded overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-accent/50 hover:scale-105 transition-all duration-300 cursor-pointer">
-                  <img
+                  <Image
                     src={cat.imagen}
                     alt={cat.nombre}
+                    width={600}
+                    height={400}
                     className="w-full h-56 sm:h-[400px] object-cover"
                   />
                   <div className="bg-accent text-primary uppercase p-2 sm:p-4 font-semibold text-base sm:text-lg transition-colors duration-300 group-hover:bg-primary group-hover:text-accent">
@@ -148,7 +150,13 @@ export default function HomePage() {
         {/* ¿Quiénes somos? */}
         <section className="bg-accent py-12 sm:py-20 px-4 sm:px-6 gsap-section">
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
-            <img src="/images/about-us.jpeg" alt="Nosotros" className="w-full h-56 sm:h-[400px] object-cover rounded-lg shadow-md mb-6 md:mb-0" />
+            <Image
+              src="/images/about-us.jpeg"
+              alt="Nosotros"
+              width={600}
+              height={400}
+              className="w-full h-56 sm:h-[400px] object-cover rounded-lg shadow-md mb-6 md:mb-0"
+            />
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-primary">
                 ¿Quiénes somos?
