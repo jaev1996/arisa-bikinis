@@ -3,17 +3,43 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import productos from "@/data/products.json";
+import { supabase } from "@/lib/supabaseClient";
 
-
+interface Producto {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  imagen_url: string;
+  tipo: string;
+  tallas: string[];
+}
 
 export default function CatalogoPage() {
   const [categoria, setCategoria] = useState("");
   const [talla, setTalla] = useState("");
   const [busqueda, setBusqueda] = useState("");
   const [pagina, setPagina] = useState(1);
+  const [productos, setProductos] = useState<Producto[]>([]);
+  const [loading, setLoading] = useState(true);
   const porPagina = 8;
   const gridRef = useRef<HTMLElement>(null);
+
+  // Consulta productos desde Supabase
+  useEffect(() => {
+    setLoading(true);
+    supabase
+      .from("productos")
+      .select("*")
+      .then(({ data, error }) => {
+        if (error) {
+          setProductos([]);
+        } else {
+          setProductos(data || []);
+        }
+        setLoading(false);
+      });
+  }, []);
 
   // Resetear a la página 1 cuando cambian los filtros
   useEffect(() => {
@@ -22,7 +48,6 @@ export default function CatalogoPage() {
 
   // Scroll al inicio del grid cuando cambia la página
   useEffect(() => {
-    // Solo hacer scroll si no es la primera página, para evitar el salto en la carga inicial.
     if (pagina > 1) {
       gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -39,8 +64,8 @@ export default function CatalogoPage() {
   const filtrados = productos.filter((p) => {
     return (
       (!categoria || p.tipo === categoria) &&
-      (!talla || p.tallas.includes(talla)) &&
-      (!busqueda || p.nombre.toLowerCase().includes(busqueda.toLowerCase()))
+      (!talla || (Array.isArray(p.tallas) && p.tallas.includes(talla))) &&
+      (!busqueda || (p.nombre && p.nombre.toLowerCase().includes(busqueda.toLowerCase())))
     );
   });
 
@@ -115,55 +140,57 @@ export default function CatalogoPage() {
         </section>
 
         {/* Grid de productos */}
-        <motion.section
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
-          variants={gridAnim}
-          initial="hidden"
-          animate="visible"
-        >
-          {productosPagina.map((p) => (
-            <motion.div
-              key={p.id}
-              className="bg-white rounded-lg shadow-md hover:shadow-xl hover:shadow-pink-200/50 hover:scale-105 hover:ring-2 hover:ring-primary transition-all duration-300 overflow-hidden flex flex-col"
-              variants={itemAnim}
-            >
-              <Link href={`/producto/${p.id}`} className="relative block">
-                <Image
-                  src={p.imagen}
-                  alt={p.nombre}
-                  width={400}
-                  height={256}
-                  className="w-full h-64 object-contain bg-neutral-100"
-                  style={{ width: "100%", height: "16rem", objectFit: "contain", backgroundColor: "#f5f5f5" }}
-                  priority={true}
-                />
-                <span className="absolute top-2 right-2 bg-accent/90 text-primary text-xs font-semibold px-2 py-1 rounded-full">
-                  {p.tipo}
-                </span>
-              </Link>
-              <div className="p-4 flex-1 flex flex-col">
-                <div className="flex justify-between items-start mb-2">
-                  <Link href={`/producto/${p.id}`} className="font-bold text-lg text-primary hover:underline pr-2">
-                    {p.nombre}
-                  </Link>
-                  <p className="font-bold text-primary text-lg whitespace-nowrap">${p.precio}</p>
-                </div>
-                <p className="text-sm text-neutral-600 font-mono mb-4 flex-grow line-clamp-2">{p.descripcion}</p>
-                <div className="mt-auto">
-                  <div className="flex gap-2 flex-wrap">
-                    {p.tallas.map(talla => (
-                      <span key={talla} className="bg-accent text-primary/90 text-xs font-medium px-2.5 py-1 rounded-full">
-                        {talla}
-                      </span>
-                    ))}
+        {loading ? (
+          <div className="text-center py-12 text-neutral-400">Cargando productos...</div>
+        ) : (
+          <motion.section
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+            variants={gridAnim}
+            initial="hidden"
+            animate="visible"
+          >
+            {productosPagina.map((p) => (
+              <motion.div
+                key={p.id}
+                className="bg-white rounded-lg shadow-md hover:shadow-xl hover:shadow-pink-200/50 hover:scale-105 hover:ring-2 hover:ring-primary transition-all duration-300 overflow-hidden flex flex-col"
+                variants={itemAnim}
+              >
+                <Link href={`/producto/${p.id}`} className="relative block">
+                  <Image
+                    src={p.imagen_url}
+                    alt={p.nombre}
+                    width={400}
+                    height={256}
+                    className="w-full h-64 object-contain bg-neutral-100"
+                    style={{ width: "100%", height: "16rem", objectFit: "contain", backgroundColor: "#f5f5f5" }}
+                    priority={true}
+                  />
+                  <span className="absolute top-2 right-2 bg-accent/90 text-primary text-xs font-semibold px-2 py-1 rounded-full">
+                    {p.tipo}
+                  </span>
+                </Link>
+                <div className="p-4 flex-1 flex flex-col">
+                  <div className="flex justify-between items-start mb-2">
+                    <Link href={`/producto/${p.id}`} className="font-bold text-lg text-primary hover:underline pr-2">
+                      {p.nombre}
+                    </Link>
+                    <p className="font-bold text-primary text-lg whitespace-nowrap">${p.precio}</p>
+                  </div>
+                  <p className="text-sm text-neutral-600 font-mono mb-4 flex-grow line-clamp-2">{p.descripcion}</p>
+                  <div className="mt-auto">
+                    <div className="flex gap-2 flex-wrap">
+                      {Array.isArray(p.tallas) && p.tallas.map((talla: string) => (
+                        <span key={talla} className="bg-accent text-primary/90 text-xs font-medium px-2.5 py-1 rounded-full">
+                          {talla}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-
-          ))}
-
-        </motion.section>
+              </motion.div>
+            ))}
+          </motion.section>
+        )}
 
         {/* Paginación */}
         <div className="flex justify-center items-center gap-2 mt-8">
