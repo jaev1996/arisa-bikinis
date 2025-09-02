@@ -73,7 +73,7 @@ export default function HomePage() {
       >
         <div ref={loaderTextRef} className="animate-pulse">
           <Image
-            src="/logos/arisa-logo-bg-white.jpg"
+            src="/logos/arisa-logo-bg-white.png"
             alt="Logo Arisa Bikinis"
             width={300}
             height={80}
